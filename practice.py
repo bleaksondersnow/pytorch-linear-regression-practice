@@ -11,7 +11,6 @@ def generate_data():
 
 def main():
     X, y_true = generate_data()
-
     w = torch.randn(1, requires_grad=True)
     b = torch.randn(1, requires_grad=True)
 
@@ -19,21 +18,13 @@ def main():
     epochs = 200
 
     for epoch in range(epochs):
-        # Make predictions
         y_prediction = X * w + b
-
-        # Calculate error
         loss = ((y_prediction - y_true) ** 2).mean()
-
-        # Calculate gradients
         loss.backward()
-
-        # Update weight and bias
         with torch.no_grad():
             w -= learning_rate * w.grad
             b -= learning_rate * b.grad
 
-        # Reset gradients
         w.grad.zero_()
         b.grad.zero_()
 
